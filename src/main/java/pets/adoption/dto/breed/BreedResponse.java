@@ -3,8 +3,7 @@ package pets.adoption.dto.breed;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import pets.adoption.category.CategoryResponse;
 import java.time.LocalDateTime;
 
 
