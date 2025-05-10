@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "pets")
+@Table(name = "breeds")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pet {
+public class Breed {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,26 +24,11 @@ public class Pet {
     private String name;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "breed_id")
-    private Breed breed;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-    
-    @Column(nullable = false)
-    private Integer age;
     
     @Column(columnDefinition = "TEXT")
     private String description;
-    
-    private String image;
-    
-    @Column(nullable = false)
-    private String gender;
-    
-    @Column(nullable = false)
-    private String status = "ACTIVE";
     
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -51,25 +36,9 @@ public class Pet {
     @Column(nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
     
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
-    
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    private User shelter;
-    
-    @ManyToOne
-    @JoinColumn(name = "veterinarian_id")
-    private User veterinarian;
-    
-    @ManyToOne
-    @JoinColumn(name = "adopted_by")
-    private User adoptedBy;
-    
-    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "breed", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Adoption> adoptionHistory = new HashSet<>();
+    private Set<Pet> pets = new HashSet<>();
     
     @PreUpdate
     protected void onUpdate() {

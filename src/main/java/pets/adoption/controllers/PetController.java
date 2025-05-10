@@ -47,6 +47,12 @@ public class PetController {
         return ResponseEntity.ok(pets);
     }
     
+    @GetMapping("/breed/{breedId}")
+    public ResponseEntity<List<Pet>> getPetsByBreed(@PathVariable Long breedId) {
+        List<Pet> pets = petService.getPetsByBreed(breedId);
+        return ResponseEntity.ok(pets);
+    }
+    
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'SHELTER')")
     public ResponseEntity<Pet> updatePet(@PathVariable Long id, @Valid @RequestBody Pet petDetails) {

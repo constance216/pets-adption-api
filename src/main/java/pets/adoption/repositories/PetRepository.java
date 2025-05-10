@@ -12,6 +12,8 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     
     List<Pet> findByCategory_Id(Long categoryId);
     
+    List<Pet> findByBreed_Id(Long breedId);
+    
     List<Pet> findByOwner_Id(Long ownerId);
     
     List<Pet> findByShelter_Id(Long shelterId);
@@ -20,7 +22,9 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     
     List<Pet> findByAdoptedBy_Id(Long adoptedById);
     
-    List<Pet> findByBreedIgnoreCase(String breed);
+    List<Pet> findByBreed_NameIgnoreCase(String breedName);
     
     List<Pet> findByGenderAndStatus(String gender, String status);
+    
+    List<Pet> findByCategory_IdAndBreed_Id(Long categoryId, Long breedId);
 }

@@ -1,6 +1,5 @@
 package pets.adoption.models;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +34,7 @@ public class User {
     private String fullName;
     
     @Column(nullable = false)
-    private String role = "USER"; // Default role
+    private String role = "USER"; // USER, ADMIN, SHELTER, VETERINARIAN
     
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -58,6 +57,10 @@ public class User {
     @OneToMany(mappedBy = "adoptedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Pet> adoptedPets = new HashSet<>();
+    
+    @OneToMany(mappedBy = "adopter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Adoption> adoptions = new HashSet<>();
     
     @PreUpdate
     protected void onUpdate() {
